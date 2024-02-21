@@ -18,8 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('', include("landing.urls"), name='landing'),
-    path('auth/', include("authentication.urls"), name='auth'),
-    path('blog/', include("blog.urls"), name='blog'),
+    path('', include(('landing.urls', 'landing'), namespace='landing')),
+    path('auth/', include(('authentication.urls', 'authentication'), namespace='authentication')),
+    path('blog/', include(('blog.urls', 'blog'), namespace='blog')),
     path('admin/', admin.site.urls),
 ]
