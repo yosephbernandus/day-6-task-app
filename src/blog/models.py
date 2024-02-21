@@ -22,7 +22,8 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
     description = models.TextField()
 
-    db_table = 'comment'
+    class Meta:
+        db_table = 'comment'
 
     def __str__(self) -> int:
         return self.id
