@@ -1,25 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html id="root" data-theme="light">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     </head>
 
-    <body class="bg-gray-100 flex items-center justify-center h-screen">
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+    <body class="flex flex-col min-h-screen justify-between">
+        <header>
+            {% include "header.html" %} 
+        </header>
         {% block content %}{% endblock %}
     </body>
 
-    <footer>
-        {% block footer %}{% endblock footer %}
-        <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
-        <script src="https://cdn.tailwindcss.com"></script>
-    </footer>
+    {% include "footer.html" %} 
+
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </html>
