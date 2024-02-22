@@ -25,5 +25,4 @@ class BlogForm(forms.Form):
             )
             rows = cursor.fetchone()
 
-        print(rows)
         return rows
