@@ -1,28 +1,37 @@
-from django.db import connection
 from django import forms
+from django.db import connection
 from django.utils import timezone
+
+from django.contrib.auth.models import User
+
+from typing import Any, Optional
 
 
 class BlogForm(forms.Form):
     title = forms.CharField()
     text = forms.CharField()
 
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, user: User, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.user = user
 
-    def save(self, *args, **kwargs):
+    def save(self) -> Optional[str]:
         title = self.cleaned_data['title']
         text = self.cleaned_data['text']
         created_date = timezone.localtime()
 
-        rows = None
+        slug = title.lower().replace(' ', '-')
+
+        post_id = None
         with connection.cursor() as cursor:
             cursor.execute(
-                "INSERT INTO post (title, text, user_id, created_date) VALUES (%s, %s, %s, %s)", [
+                "INSERT INTO post (title, text, user_id, created_date) VALUES (%s, %s, %s, %s) RETURNING post_id", [
                     title, text, self.user.id, created_date
                 ]
             )
-            rows = cursor.fetchone()
+            post_id = cursor.fetchone()[0]
+            slug = title.lower().replace(' ', '-')
+            transform_slug = f'{slug}-{self.user.id}-{post_id}'
+            cursor.execute("UPDATE post SET slug = %s where post_id = %s", [transform_slug, post_id])\
 
-        return rows
+        return post_id

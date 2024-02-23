@@ -25,7 +25,9 @@
                     </span>
                 </div>
                 <div class="mt-auto flex flex-row items-center justify-end gap-2 sm:gap-4">
-                    <a class="btn-neutral btn-outline btn-sm btn w-32 text-lg font-bold normal-case opacity-80 group-hover:opacity-100 sm:btn-md sm:!text-xl" href="/article/this-is-not-true-at-all-5039HUxQLUaDWmg-eCTbq_Tc">
+                    <a
+                        class="btn-neutral btn-outline btn-sm btn w-32 text-lg font-bold normal-case opacity-80 group-hover:opacity-100 sm:btn-md sm:!text-xl"
+                        href="{% url 'blog:detail-post' post.slug %}">
                         Read
                     </a>
                 </div>

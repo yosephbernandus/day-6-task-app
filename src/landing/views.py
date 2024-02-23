@@ -6,7 +6,7 @@ from django.shortcuts import render
 def index(request):
     rows = []
     with connection.cursor() as cursor:
-        cursor.execute("SELECT post_id, title, text, created_date from post")
+        cursor.execute("SELECT post_id, title, slug, text, created_date from post")
         rows = cursor.fetchall()
 
     posts = []
@@ -14,8 +14,9 @@ def index(request):
         obj = {
             'id': row[0],
             'title': row[1],
-            'text': row[2],
-            'created_date': row[3]
+            'slug': row[2],
+            'text': row[3],
+            'created_date': row[4]
         }
         posts.append(obj)
 
