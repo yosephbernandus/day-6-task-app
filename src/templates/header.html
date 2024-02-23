@@ -9,7 +9,11 @@
 			<ul class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52" tabindex="0">
 				<li><a class="justify-between"> Profile <span class="badge">New</span> </a></li>
 				<li><a hx-trigger="click" hx-target="#root" hx-swap="data-theme:light; data-theme:dark">Switch Theme</a></li>
-				<li><a>Logout</a></li>
+				{% if request.user.is_authenticated %}
+					<li><a href="{% url 'authentication:logout' %}">Logout</a></li>
+				{% else %}
+					<li><a href="{% url 'authentication:login' %}">Login</a></li>
+				{% endif %}
 			</ul>
 		</div>
 	</div>

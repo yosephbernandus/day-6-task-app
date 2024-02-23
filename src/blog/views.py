@@ -5,14 +5,17 @@ from django.db import connection
 from django.http import HttpRequest, HttpResponse 
 from django.shortcuts import render
 
+from authentication.decorators import login_required
 
-def index(request):
+
+@login_required
+def index(request: HttpRequest) -> HttpResponse:
     return render(request, 'blog/index.html')
 
 
-def submit_post(request):
-    user = User.objects.last()
-    form = BlogForm(data=request.POST or None, user=user)
+@login_required
+def submit_post(request: HttpRequest) -> HttpResponse:
+    form = BlogForm(data=request.POST or None, user=request.user)
 
     if form.is_valid():
         form.save()
