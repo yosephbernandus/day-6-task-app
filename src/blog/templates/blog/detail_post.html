@@ -3,6 +3,53 @@
 {% block content %}
 
 <main class="mx-auto flex min-h-screen max-w-[60rem] flex-col justify-start gap-4 bg-base-100 p-4 relative sm:gap-8 sm:p-8 overflow-hidden rounded-xl transition-colors duration-500 undefined opacity-100 translate-y-0 scale-x-100 transform-none">
-    {{ post_data }}
+    <div class="block text-base sm:text-lg [&amp;&gt;.separator]:mx-[0.5rem]">
+        <span class="first-letter:uppercase">
+            {{post_data.created_date}}
+        </span>
+    </div>
+    <h1 id="post-title" class="text-3xl font-black sm:text-4xl">
+        {{post_data.title}}
+    </h1>
+    <h2 class="text-xl font-semibold sm:text-2xl">
+        {{post_data.title}}
+    </h2>
+    <div class="flex flex-col gap-2 sm:gap-4">
+        <img class="z-10 aspect-video h-full w-full max-w-none bg-primary object-cover transition-transform self-center duration-500 hover:scale-[1.2] group-focus-within:my-auto group-focus-within:aspect-auto sm:group-focus-within:max-w-[80vw] group-focus-within:h-auto group-focus-within:max-h-[90vh] group-focus-within:rounded-xl sm:group-focus-within:m-auto group-focus-within:object-fill group-focus-within:duration-[0] group-focus-within:hover:scale-100" src="https://popstation.id/wp-content/uploads/2023/05/vin1.jpg" alt="Image" width="240" height="240" />
+    </div>
+    <article id="container mx-auto">
+        <p>{{post_data.text}}</p>
+    </article>
+
+    <div class="flex flex-col gap-4 sm:gap-8">
+        <div class="flex flex-row gap-4 items-start animate-fadeIn">
+            <form class="form-control flex-1 rounded-xl gap-4">
+                <div class="flex w-full flex-col gap-1 sm:gap-2">
+                    <label class="input-group-sm input-group relative rounded-xl sm:input-group-md">
+                        <textarea id="article-comment-input" class="peer textarea w-full !rounded-xl text-sm md:text-base
+                        !outline !outline-1 !outline-offset-0
+                        focus:!outline-[2px] sm:focus:!outline-[3px] focus:z-[2] focus:border-transparent
+                        duration-300 transition-[outline,background-color,border-color,text-decoration-color,fill,stroke]
+                        font-semibold px-2 md:px-4 py-1 md:py-2
+                        placeholder-shown:!outline-dashed
+                        focus:!outline-base-content placeholder-shown:!outline-base-content/20
+                        min-h-[12rem]" name="comment" placeholder="Add a comment...">
+                        </textarea>
+                    </label>
+                </div>
+                <div class="flex justify-end w-full gap-2 sm:gap-4">
+                    <button class="flex-1 sm:flex-none font-bold btn btn-primary normal-case text-xl sm:w-48 --btn-resp btn-disabled" type="submit">
+                        Comment
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class=" relative flex gap-2 sm:gap-4 sm:items-center rounded-xl bg-primary/30 p-4 justify-between flex-col sm:flex-row">
+            <div class="flex-1 text-sm font-semibold sm:text-base">
+                No comments yet, let the people know, what's your thought about this article..
+            </div>
+        </div>
+    </div>
+    
 </main>
 {% endblock %}
