@@ -1,19 +1,24 @@
 from django.http import HttpRequest, HttpResponse
-from django.contrib.auth import login
-from django.contrib.admin.forms import AdminAuthenticationForm
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
 
 # Create your views here.
 def index(request: HttpRequest) -> HttpResponse:
-    auth_form = AdminAuthenticationForm(data=request.POST or None)
-
     if request.POST:
-        if auth_form.is_valid():
-            login(request, auth_form.get_user())
-            return redirect('blog:index')
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('landing:index')
         else:
             messages.error(request, 'Invalid username or password')
 
     return render(request, 'auth/index.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('landing:index')
