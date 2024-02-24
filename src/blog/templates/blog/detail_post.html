@@ -23,7 +23,8 @@
 
     <div class="flex flex-col gap-4 sm:gap-8">
         <div class="flex flex-row gap-4 items-start animate-fadeIn">
-            <form class="form-control flex-1 rounded-xl gap-4">
+            <form hx-post="{% url 'blog:submit-comment' post_data.id  %}" hx-target="#comment-list" class="form-control flex-1 rounded-xl gap-4">
+                {% csrf_token %}
                 <div class="flex w-full flex-col gap-1 sm:gap-2">
                     <label class="input-group-sm input-group relative rounded-xl sm:input-group-md">
                         <textarea id="article-comment-input" class="peer textarea w-full !rounded-xl text-sm md:text-base
@@ -38,7 +39,7 @@
                     </label>
                 </div>
                 <div class="flex justify-end w-full gap-2 sm:gap-4">
-                    <button class="flex-1 sm:flex-none font-bold btn btn-primary normal-case text-xl sm:w-48 --btn-resp btn-disabled" type="submit">
+                    <button class="flex-1 sm:flex-none font-bold btn btn-block normal-case text-xl sm:w-48" type="submit">
                         Comment
                     </button>
                 </div>
@@ -50,6 +51,42 @@
             </div>
         </div>
     </div>
-    
+
+    <div id="comment-list" class="flex flex-col" hx-swap="outerHTML">
+        {% for comment_data in post_data.comments %}
+            <div id="comment-{{comment_data.id}}" class="flex flex-col rounded-xl transition-all duration-300 hover:p-2 m-1 sm:hover:p-4 sm:m-2 ease-in-out hover:bg-primary/10">
+                <div class="flex flex-row items-stretch gap-2 sm:gap-4">
+                    <div class="flex flex-1 flex-col gap-1 overflow-hidden sm:gap-2">
+                        <div class="inline-flex gap-1 sm:gap-2 items-center justify-between">
+                            <div class="flex items-baseline gap-1 truncate">
+                                <span class="text-base font-bold capitalize sm:text-lg">
+                                    {{comment_data.username}}
+                                </span>
+                                &mdash;
+                                <span class="sm:text-md text-sm font-semibold opacity-50">
+                                    less than a minute ago
+                                </span>
+                            </div>
+                        </div>
+                        <span class="truncate whitespace-pre-line text-sm sm:text-base">
+                            {{comment_data.text}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <script type="text/javascript">
+        document.addEventListener('htmx:afterRequest', function(event) {
+            obj = JSON.parse(event.detail.xhr.response)
+            var commentList = document.getElementById('comment-list');
+
+            var newCommentHTML = obj.html;
+            // commentList.insertAdjacentHTML('beforeend', newCommentHTML);
+            commentList.innerHTML = newCommentHTML;
+
+            // TODO: Add If obj.success = False
+        });
+    </script>
 </main>
 {% endblock %}

@@ -3,6 +3,7 @@ from django.db import connection
 from django.utils import timezone
 
 from django.contrib.auth.models import User
+from blog.models import Comment
 
 from typing import Any, Optional
 
@@ -35,3 +36,16 @@ class BlogForm(forms.Form):
             cursor.execute("UPDATE post SET slug = %s where post_id = %s", [transform_slug, post_id])\
 
         return post_id
+
+
+class CommentForm(forms.ModelForm):
+
+    # def __init__(self, user: User, post_id: int, *args: Any, **kwargs: Any) -> None:
+    #     super().__init__(*args, **kwargs)
+    #     self.user = user
+    #     self.post = Post.objects.get(id=post_id)
+
+    class Meta:
+        model = Comment
+        fields = ['post', 'user', 'text']
+
