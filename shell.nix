@@ -5,6 +5,7 @@
 
  pkgs.mkShell {
    packages = with pkgs; [
+     nodejs_20
      git
      neovim
      python311

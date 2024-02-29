@@ -11,7 +11,7 @@
 
 				<li><a hx-get="{% url 'landing:index' %}" hx-swap="innerHTML" hx-target="#content">Blog</a>
 				<li><a hx-get="{% url 'blog:index' %}" hx-swap="innerHTML" hx-target="#content">Post Blog</a>
-				<li><a hx-trigger="click" hx-target="#root" hx-swap="data-theme:light; data-theme:dark">Switch Theme</a></li>
+				<li><a hx-trigger="click" hx-target="#root" hx-swap="innerHTML">Switch Theme</a></li>
 				{% if request.user.is_authenticated %}
 					<li><a hx-get="{% url 'authentication:logout' %}" hx-swap="innerHTML" hx-target="#content">Logout</a></li>
 				{% else %}
