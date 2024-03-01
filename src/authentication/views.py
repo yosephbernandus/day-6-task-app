@@ -15,10 +15,10 @@ def submit_login(request: HttpRequest) -> HttpResponse:
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        return redirect('landing:index')
+        return redirect('landing:blogs')
     else:
         messages.error(request, 'Invalid username or password')
-        return render(request, 'auth/error.html')
+        return render(request, 'auth/index.html')
 
 def logout_view(request):
     logout(request)
