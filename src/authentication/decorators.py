@@ -1,7 +1,7 @@
 from functools import wraps
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
 from typing import Any, Callable
 
@@ -11,5 +11,5 @@ def login_required(view_func: Callable) -> Callable:
         if request.user.is_authenticated:
             return view_func(request, *args, **kwargs)
         messages.info(request, 'Mohon masuk terelebih dahulu')
-        return redirect('authentication:login')
+        return render(request, 'auth/index.html')
     return _check_user_account

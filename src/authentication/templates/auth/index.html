@@ -1,17 +1,20 @@
 {% block content %}
 <main class="mx-auto flex min-h-screen max-w-[60rem] flex-col justify-start gap-4 bg-base-100 p-4 relative sm:gap-8 sm:p-8 overflow-hidden rounded-xl transition-colors duration-500 undefined opacity-100 translate-y-0 scale-x-100 transform-none">
     <div class="md:container md:mx-auto px-2">
-        {% if messages %}
-            <div role="alert" class="alert alert-error">
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                {% for message in messages %}
-                    <span {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</span>
-                {% endfor %}
-            </div>
-        {% endif %}
+        <div id="message">
+            {% if messages %}
+                <div role="alert" class="alert alert-error">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    {% for message in messages %}
+                        <span {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
         <div class="mx-auto flex min-h-full w-full flex-col p-4 sm:p-8 items-center">
             <h2 class="text-3xl font-semibold text-center mb-4">Login</h2>
-            <form method="post" hx-boost="true" action="{% url 'authentication:login' %}" class="space-y-4">
+            <form hx-post="{% url 'authentication:submit_login' %}" hx-target="#message" class="space-y-4">
                 {% csrf_token %}
                 <div class="label">
                     <span class="label-text font-bold">Username</span>
