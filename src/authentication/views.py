@@ -22,3 +22,5 @@ def index(request: HttpRequest) -> HttpResponse:
 def logout_view(request):
     logout(request)
     return redirect('landing:index')
+
+

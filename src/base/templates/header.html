@@ -8,10 +8,9 @@
 			</div>
 			<ul class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52" tabindex="0">
 				{% comment %} <li><a class="justify-between"> Profile <span class="badge">New</span> </a></li> {% endcomment %}
-
+				<li><a type="button" class="nav-item theme" id="theme-toggle">🌚</a></li>
 				<li><a hx-get="{% url 'landing:index' %}" hx-swap="innerHTML" hx-target="#content">Blog</a>
 				<li><a hx-get="{% url 'blog:index' %}" hx-swap="innerHTML" hx-target="#content">Post Blog</a>
-				<li><a hx-trigger="click" hx-target="#root" hx-swap="innerHTML">Switch Theme</a></li>
 				{% if request.user.is_authenticated %}
 					<li><a hx-get="{% url 'authentication:logout' %}" hx-swap="innerHTML" hx-target="#content">Logout</a></li>
 				{% else %}

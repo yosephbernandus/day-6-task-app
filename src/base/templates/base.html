@@ -18,4 +18,34 @@
     {% include "footer.html" %} 
 
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script>
+        const themeToggle = document.querySelector("#theme-toggle");
+        const currentTheme = localStorage.getItem("theme");
+
+        if (currentTheme == "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+            themeToggle.innerText="🌞";
+        } else {
+            themeToggle.innerText = "🌚"
+            document.documentElement.setAttribute("data-theme", "dark");
+        }
+
+
+        function themeMode() {
+
+            if (themeToggle.innerHTML == '🌚') {
+                document.documentElement.setAttribute("data-theme", "light");
+                themeToggle.innerText="🌞";
+                theme = 'light';
+            } else {
+                document.documentElement.setAttribute("data-theme", "dark");
+                themeToggle.innerText="🌚";
+                theme = 'dark';
+            }
+
+            localStorage.setItem("theme", theme);
+        }
+
+        themeToggle.addEventListener("click", themeMode)
+    </script>
 </html>
