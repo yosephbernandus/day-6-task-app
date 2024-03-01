@@ -5,4 +5,5 @@ from landing import views
 
 urlpatterns = [
     path('', views.index, name="index"),
+    path('blogs', views.index, name="blogs"),
 ]

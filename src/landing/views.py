@@ -24,4 +24,9 @@ def index(request):
         'posts': posts
     }
 
-    return render(request, 'landing/index.html', context=context)
+    if 'blogs' in request.path:
+        template = 'landing/blogs.html'
+    else:
+        template = 'landing/index.html'
+
+    return render(request, template, context=context)

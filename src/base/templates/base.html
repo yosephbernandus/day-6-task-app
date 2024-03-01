@@ -8,11 +8,13 @@
         <link href="{% static 'base/output.css' %}" rel="stylesheet" type="text/css" />
     </head>
 
-    <body id="content" class="flex flex-col min-h-screen justify-between">
+    <body class="flex flex-col min-h-screen justify-between">
         <header>
             {% include "header.html" %} 
         </header>
-        {% block content %}{% endblock %}
+        <main id="content">
+            {% block content %}{% endblock %}
+        </main>
     </body>
 
     {% include "footer.html" %} 

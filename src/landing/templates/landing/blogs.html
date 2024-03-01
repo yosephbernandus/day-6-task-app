@@ -1,0 +1,38 @@
+{% block content %}
+<main class="mx-auto flex min-h-screen max-w-[60rem] flex-col justify-start gap-4 bg-base-100 p-4 relative sm:gap-8 sm:p-8 overflow-hidden rounded-xl transition-colors duration-500 undefined opacity-100 translate-y-0 scale-x-100 transform-none">
+    {% for post in posts %}
+    <div class="flex min-h-full w-full flex-col p-1 sm:p-8 items-center">
+        <div class="flex flex-col gap-4 sm:gap-8 w-full">
+            <div class="group relative flex w-full flex-col overflow-hidden shadow-lg bg-opacity-10 rounded-xl shadow-lg sm:min-h-[15rem] sm:flex-row">
+                <a class=" absolute inset-0 aspect-square h-full w-full overflow-hidden rounded-t-xl rounded-bl-none bg-base-content/30 sm:relative sm:h-auto sm:w-72 sm:rounded-l-xl sm:rounded-tr-none " href="">
+                    <img class="h-full w-full max-w-none object-cover transition-transform duration-1000 group-hover:scale-[1.2]" src="https://popstation.id/wp-content/uploads/2023/05/vin1.jpg" alt="Image" width="240" height="240" />
+                </a>
+                <div class="absolute inset-0 bg-base-300/50 bg-gradient-to-b from-base-300/50 via-base-300/70 to-primary/50 sm:hidden">
+                    &nbsp;
+                </div>
+                <div class="z-[1] flex flex-1 flex-col gap-2 p-4 sm:gap-4">
+                    <a class="text-lg font-black line-clamp-2 group-hover:underline sm:text-xl">
+                        {{post.title}}
+                    </a>
+                    <span class="text-sm font-semibold line-clamp-2 sm:line-clamp-3 sm:text-base">
+                        {{post.text|linebreaks}}
+                    </span>
+                    <div class="block text-xs sm:text-sm mx-[0.5rem] line-clamp-1 font-medium">
+                        <span>
+                            {{post.created_date}}
+                        </span>
+                    </div>
+                    <div class="mt-auto flex flex-row items-center justify-end gap-2 sm:gap-4">
+                        <a
+                            class="btn-neutral btn-outline btn-sm btn w-32 text-lg font-bold normal-case opacity-80 group-hover:opacity-100 sm:btn-md sm:!text-xl"
+                            hx-get="{% url 'blog:detail-post' post.slug %}" hx-swap="innerHTML" hx-target="#content">
+                            Read
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</main>
+{% endblock %}
